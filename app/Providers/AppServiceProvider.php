@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view()->composer('*', function ($view) {
-            $tasks = Task::with(['assignedBy', 'assignedBy']);;
+            $tasks = Task::with(['assignedBy', 'assignedBy'])->orderBy('created_at', 'desc');;
             if (!auth()->user() || !auth()->user()->is_admin) {
                 $tasks = $tasks->where([
                     'assigned_to_id' => auth()->id()

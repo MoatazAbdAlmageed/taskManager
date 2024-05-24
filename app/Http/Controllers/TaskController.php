@@ -4,18 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index(Request $request)
     {
-
-        return view('dashboard', compact('tasks'));
+        return view('tasks.index');
     }
 
-    public function create(TaskRequest $request)
+    public function store(TaskRequest $request)
     {
+
         $task = Task::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -24,8 +25,14 @@ class TaskController extends Controller
         ]);
 
         if (!$task) {
-            throw new \Exception('Failed to create task. Please try again.');
+            return back()->with('error', 'Failed to create task. Please try again.');
         }
-        return redirect()->route('tasks');
+        return redirect('tasks');
+    }
+
+    public function create()
+    {
+        $users = User::where('is_admin', false)->get();
+        return view('tasks.create', compact('users'));
     }
 }
