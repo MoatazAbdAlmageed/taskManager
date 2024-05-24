@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
                     'assigned_to_id' => auth()->id()
                 ]);
             }
-            $view->with('tasks', $tasks->paginate(10));
+            $view->with('tasks', $tasks->simplePaginate(10));
         });
     }
 }
