@@ -35,4 +35,15 @@ class TaskController extends Controller
         $users = User::where('is_admin', false)->get();
         return view('tasks.create', compact('users'));
     }
+
+    public function statistics()
+    {
+        $users = User::withCount('tasks')
+            ->orderBy('tasks_count', 'desc')
+            ->limit(10)
+            ->get();
+
+        return view('statistics', compact('users'));
+    }
+
 }

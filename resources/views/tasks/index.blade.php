@@ -16,7 +16,9 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Assigned By</th>
-                                <th>Assigned To</th>
+                                @if(auth()->user()->is_admin)
+                                    <th>Assigned To</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -25,7 +27,9 @@
                                     <td>{{ $task->title }}</td>
                                     <td>{{ $task->description }}</td>
                                     <td>{{ $task->assignedBy->name }}</td>
-                                    <td>{{ $task->assignedUser->name }}</td>
+                                    @if(auth()->user()->is_admin)
+                                        <td>{{ $task->assignedUser->name }}</td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

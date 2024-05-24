@@ -37,6 +37,12 @@ class User extends Authenticatable
         return $this->is_admin;
     }
 
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'assigned_to_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

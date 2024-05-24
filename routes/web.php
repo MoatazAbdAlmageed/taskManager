@@ -13,6 +13,7 @@ Route::get('/', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('tasks', TaskController::class)->middleware(['auth']);
+Route::get('statistics', [TaskController::class, 'statistics'])->middleware(['auth'])->name('statistics');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

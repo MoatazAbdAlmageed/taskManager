@@ -17,12 +17,19 @@
                     </x-nav-link>
                 </div>
 
+                @if(auth()->user()->is_admin)
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')">
+                            {{ __('Create') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('statistics')" :active="request()->routeIs('statistics')">
+                            {{ __('Statistics') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('tasks.create')" :active="request()->routeIs('tasks.create')">
-                        {{ __('Create') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
