@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-tr {
-    text-align: center;
+thead {
+    text-align: left !important;
 }
+
