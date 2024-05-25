@@ -21,13 +21,13 @@ class TasksController extends Controller
         if (!$task) {
             return back()->with('error', 'Failed to create task. Please try again.');
         }
-        return redirect()->back()->with('success', 'Task created successfully!');
+        return redirect('tasks')->with('success', 'Task created successfully!');
 
     }
 
     public function create()
     {
-        $users = User::where('is_admin', false)->get();
+        $users = User::where('is_admin', true)->get();
         $admins = User::where('is_admin', true)->get();
         return view('tasks.create', compact('users', 'admins'));
     }
