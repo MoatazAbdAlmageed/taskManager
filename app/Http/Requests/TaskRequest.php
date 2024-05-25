@@ -12,6 +12,7 @@ class TaskRequest extends FormRequest
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'assigned_to_id' => 'required|integer|exists:users,id',
+            'assigned_by_id' => 'required|integer|exists:users,id',
         ];
     }
 

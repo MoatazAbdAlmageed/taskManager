@@ -7,7 +7,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class TasksController extends Controller
 {
     public function index(Request $request)
     {
@@ -16,29 +16,26 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-
-        $task = Task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'assigned_to_id' => $request->assigned_to_id,
-            'assigned_by_id' => auth()->id(),
-        ]);
-
+        $validated = $request->validated();
+        $task = Task::create($validated);
         if (!$task) {
             return back()->with('error', 'Failed to create task. Please try again.');
         }
-        return redirect('tasks');
+        return redirect()->back()->with('success', 'Task created successfully!');
+
     }
 
     public function create()
     {
         $users = User::where('is_admin', false)->get();
-        return view('tasks.create', compact('users'));
+        $admins = User::where('is_admin', true)->get();
+        return view('tasks.create', compact('users', 'admins'));
     }
 
     public function statistics()
     {
-        $users = User::withCount('tasks')
+        $users = User::where('is_admin', false)
+            ->withCount('tasks')
             ->orderBy('tasks_count', 'desc')
             ->limit(10)
             ->get();

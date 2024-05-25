@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,8 +12,8 @@ Route::get('/', function () {
     return view('tasks.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('tasks', TaskController::class)->middleware(['auth']);
-Route::get('statistics', [TaskController::class, 'statistics'])->middleware(['auth'])->name('statistics');
+Route::resource('tasks', TasksController::class)->middleware(['auth']);
+Route::get('statistics', [TasksController::class, 'statistics'])->middleware(['auth'])->name('statistics');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

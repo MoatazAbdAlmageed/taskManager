@@ -24,6 +24,17 @@
 
 
                         <div class="flex flex-col">
+                            <label for="assigned_to" class="text-sm font-medium mb-2">Assigned By:</label>
+                            <select required id="assigned_by" name="assigned_by_id"
+                                    class="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <option value="">Select Admin</option>
+                                @foreach ($admins as $admin)
+                                    <option value="{{ $admin->id }}">{{ $admin->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
                             <label for="assigned_to" class="text-sm font-medium mb-2">Assigned To:</label>
                             <select required id="assigned_to" name="assigned_to_id"
                                     class="rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">

@@ -9,18 +9,33 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        User::create([
-            'name' => 'Moataz',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
-            'is_admin' => true,
-        ]);
+        $users = [];
+        $password = bcrypt('password');
+        $count = 100;
+        dump("creating $count admins");
+        for ($i = 0; $i < $count; $i++) {
+            $users [] = [
+                'name' => "admin$i",
+                'email' => "admin$i@example.com",
+                'password' => $password,
+                'is_admin' => true,
+            ];
+        }
 
-        User::create([
-            'name' => 'Omar',
-            'email' => 'user@example.com',
-            'password' => bcrypt('password'),
-            'is_admin' => false,
-        ]);
+        $count = 10000;
+        dump("creating $count users");
+        for ($i = 0; $i < $count; $i++) {
+            $users [] = [
+                'name' => "user$i",
+                'email' => "user$i@example.com",
+                'password' => $password,
+                'is_admin' => false,
+            ];
+        }
+        $chunks = array_chunk($users, 100);
+        foreach ($chunks as $chunk) {
+            User::insert($chunk);
+        }
+
     }
 }

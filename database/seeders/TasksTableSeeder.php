@@ -10,16 +10,26 @@ class TasksTableSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::all();
+        $users = User::where('is_admin', false)->get();
+        $admins = User::where('is_admin', true)->get();
+        $tasks = [];
 
-        for ($i = 0; $i < 100; $i++) { // Seed 100 tasks
+        $count = 100000;
+        dump("creating $count task");
+        for ($i = 0; $i < $count; $i++) {
             $user = $users->random();
-            Task::create([
+            $admin = $admins->random();
+            $tasks[] = [
                 'title' => 'Task ' . ($i + 1),
                 'description' => 'This is a sample task description.',
                 'assigned_to_id' => $user->id,
-                'assigned_by_id' => User::where('is_admin', true)->first()->id,
-            ]);
+                'assigned_by_id' => $admin->id
+            ];
+        }
+
+        $chunks = array_chunk($tasks, 100);
+        foreach ($chunks as $chunk) {
+            Task::insert($chunk);
         }
     }
 }
