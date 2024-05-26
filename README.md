@@ -15,6 +15,12 @@ Make sure you have the following installed:
 
 ### Steps
 
+#### Automatic
+
+`php artisan init:app`
+
+#### Manual
+
 1. **Clone the Repository:**
 
 `git clone https://github.com/MoatazAbdAlmageed/task-manager.git`
@@ -38,16 +44,16 @@ Make sure you have the following installed:
    ```bash
    php artisan key:generate
    ```
-
 5. **Configure Database:**
 
-   Open the `.env` file and set your database credentials:
+run `php artisan database:create taskManager` then
+Open the `.env` file and set your database credentials:
 
    ```env
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
    DB_PORT=3306
-   DB_DATABASE=your_database_name
+   DB_DATABASE=taskManager
    DB_USERNAME=your_database_username
    DB_PASSWORD=your_database_password
    ```
